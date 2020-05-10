@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormQuery from '../components/FormQuery';
+import { Route } from 'react-router-dom';
 
 // import PropTypes from 'prop-types';
 
@@ -10,7 +11,7 @@ export class MoviesPage extends Component {
 
     return (
       <div>
-        <FormQuery props={this.props} />
+        <Route path="/movies" component={FormQuery} />
       </div>
     );
   }

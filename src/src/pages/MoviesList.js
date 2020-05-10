@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { render } from '@testing-library/react';
 
 export default class List extends Component {
   render() {
     const { items, location } = this.props;
+    console.log(items);
     return (
       <ul>
         {items.map(

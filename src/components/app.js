@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import MoviesPage from '../pages/MoviesPage';
 import HomePage from '../pages/HomePage';
-import MoviePage from '../pages/Movie';
+import MoviePage from '../pages/MovieDetailsPage';
 import NotFoundPage from '../pages/NotFound';
 import Nav from './Nav';
 

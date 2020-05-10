@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 const MoviesList = ({ movies = [] }) => (
   <ul>
+    {console.log(movies)}
     {movies.map(
       movie =>
         movie.title && (

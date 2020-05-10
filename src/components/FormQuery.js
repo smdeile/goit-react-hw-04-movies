@@ -2,22 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as MoviesAPI from '../services/moviesAPI';
 import MoviesList from '../pages/MoviesList';
+import { NavLink } from 'react-router-dom';
 
 export class FormQuery extends Component {
   static propTypes = {};
   state = { query: '', movies: [] };
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.state);
+    console.log(this.props);
   }
 
   handleSubmit = e => {
     e.preventDefault();
     const queryMovie = this.state.query;
     this.fetchMovie(queryMovie);
-    // this.props.history.push({
-    //   ...this.props.location,
-    //   search: `?query=${queryMovie}`,
-    // });
+    console.log(this.props);
+    console.log(this.props.location);
+
+    this.props.history.push({
+      ...this.props.location,
+      search: `?query=${queryMovie}`,
+    });
     this.setState({ query: '' });
   };
   handleChange = ({ target }) => {
@@ -29,6 +33,8 @@ export class FormQuery extends Component {
     console.log(this.state);
   };
   render() {
+    const { movies } = this.state;
+
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -41,8 +47,15 @@ export class FormQuery extends Component {
           ></input>
           <button>Find</button>
         </form>
-        {console.log(this.state.movies.length) &&
-          this.state.movies.length > 0 && <MoviesList items={this.state} />}
+        {this.state.movies.length > 0 && (
+          <ul>
+            {movies.map(movie => (
+              <li key={movie.id}>
+                <NavLink to={`/movies/${movie.id}`}>{movie.name}</NavLink>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     );
   }
