@@ -1,0 +1,1 @@
+{"version":3,"sources":["base.css"],"names":[],"mappings":"AAAA,KACE,qBACF,CAEA,iBAGE,kBACF","file":"main.3b172962.chunk.css","sourcesContent":["html {\r\n  box-sizing: border-box;\r\n}\r\n\r\n*,\r\n*::before,\r\n*::after {\r\n  box-sizing: inherit;\r\n}\r\n"]}
