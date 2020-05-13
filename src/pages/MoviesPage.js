@@ -7,11 +7,9 @@ import { Route } from 'react-router-dom';
 export class MoviesPage extends Component {
   static propTypes = {};
   render() {
-    console.log(this.props);
-
     return (
       <div>
-        <Route path="/movies" component={FormQuery} />
+        <Route path={`${this.props.match.path}`} component={FormQuery} />
       </div>
     );
   }

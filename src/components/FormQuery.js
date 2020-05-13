@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as MoviesAPI from '../services/moviesAPI';
-import MoviesList from '../pages/MoviesList';
-import { NavLink } from 'react-router-dom';
+import MoviePage from '../pages/MovieDetailsPage';
+import { withRouter, NavLink } from 'react-router-dom';
 
 export class FormQuery extends Component {
   static propTypes = {};

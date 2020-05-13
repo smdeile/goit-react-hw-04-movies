@@ -1,9 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
+import MoviePage from './MovieDetailsPage';
 
 const MoviesList = ({ movies = [] }) => (
   <ul>
-    {console.log(movies)}
     {movies.map(
       movie =>
         movie.title && (
