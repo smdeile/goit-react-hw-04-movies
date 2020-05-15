@@ -3,12 +3,19 @@ import PropTypes from 'prop-types';
 import * as MoviesAPI from '../services/moviesAPI';
 import MoviePage from '../pages/MovieDetailsPage';
 import { withRouter, NavLink } from 'react-router-dom';
+import queryString from 'query-string';
+import { queries } from '@testing-library/react';
 
 export class FormQuery extends Component {
   static propTypes = {};
   state = { query: '', movies: [] };
   componentDidUpdate(prevProps, prevState) {
     console.log(this.props);
+  }
+  componentDidMount() {
+    const query = queryString.parse(this.props.location.search);
+    console.log(query.query);
+    this.fetchMovie(query.query);
   }
 
   handleSubmit = e => {
@@ -22,6 +29,8 @@ export class FormQuery extends Component {
       ...this.props.location,
       search: `?query=${queryMovie}`,
     });
+    console.log(this.props.location);
+
     this.setState({ query: '' });
   };
   handleChange = ({ target }) => {
@@ -34,7 +43,7 @@ export class FormQuery extends Component {
   };
   render() {
     const { movies } = this.state;
-
+    const { search } = this.props.location;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -51,7 +60,14 @@ export class FormQuery extends Component {
           <ul>
             {movies.map(movie => (
               <li key={movie.id}>
-                <NavLink to={`/movies/${movie.id}`}>{movie.name}</NavLink>
+                <NavLink
+                  to={{
+                    pathname: `/movies/${movie.id}`,
+                    state: search,
+                  }}
+                >
+                  {movie.name}
+                </NavLink>
               </li>
             ))}
           </ul>

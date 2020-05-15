@@ -31,8 +31,12 @@ export default class MovieDetailsPage extends Component {
   }
   handleClick = e => {
     e.preventDefault();
-    console.log(this.props);
-    this.props.history.push('/movies');
+    console.log(this.props.location.state);
+    if (this.props.location.state) {
+      this.props.history.push(`/movies${this.props.location.state}`);
+    } else {
+      this.props.history.push('/');
+    }
   };
   render() {
     const styledLink = { color: 'red' };
