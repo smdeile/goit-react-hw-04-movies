@@ -22,8 +22,6 @@ export class FormQuery extends Component {
     e.preventDefault();
     const queryMovie = this.state.query;
     this.fetchMovie(queryMovie);
-    console.log(this.props);
-    console.log(this.props.location);
 
     this.props.history.push({
       ...this.props.location,

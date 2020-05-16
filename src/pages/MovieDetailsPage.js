@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, NavLink, Route } from 'react-router-dom';
 import * as moviesAPI from '../services/moviesAPI';
-
+import queryString from 'query-string';
 export default class MovieDetailsPage extends Component {
   state = {
     movie: null,
@@ -12,6 +12,16 @@ export default class MovieDetailsPage extends Component {
   };
   componentDidMount() {
     const { id } = this.props.match.params;
+    console.log(this.props.location.state);
+    console.log(this.props.location.search);
+    const queryParsed = queryString.parse(this.props.location.state);
+    console.log(queryParsed);
+    this.props.history.push({
+      ...this.props.location,
+      state: `?query=${queryParsed.query}`,
+    });
+    console.log(this.props.location);
+
     moviesAPI
       .fetchId(id)
       .then(movie => this.setState({ movie }))
@@ -31,16 +41,19 @@ export default class MovieDetailsPage extends Component {
   }
   handleClick = e => {
     e.preventDefault();
-    console.log(this.props.location.state);
+    console.log(this.props.location);
     if (this.props.location.state) {
       this.props.history.push(`/movies${this.props.location.state}`);
     } else {
       this.props.history.push('/');
     }
   };
+
   render() {
     const styledLink = { color: 'red' };
     const { movie, actors, error, reviews } = this.state;
+    const { state } = this.props.location;
+    console.log(this.props.history);
 
     const CastComponent = () => {
       return (
@@ -79,6 +92,7 @@ export default class MovieDetailsPage extends Component {
         );
       }
     };
+
     return (
       <div>
         {movie && (
@@ -104,15 +118,20 @@ export default class MovieDetailsPage extends Component {
               <ul>
                 <li>
                   <NavLink
-                    to={`/movies/${movie.id}/cast`}
-                    activeStyle={styledLink}
+                    to={{
+                      pathname: `/movies/${movie.id}/cast`,
+                      state: state,
+                    }}
                   >
                     Cast
                   </NavLink>
                 </li>
                 <li>
                   <NavLink
-                    to={`/movies/${movie.id}/reviews`}
+                    to={{
+                      pathname: `/movies/${movie.id}/reviews`,
+                      state: state,
+                    }}
                     activeStyle={styledLink}
                   >
                     Reviews
