@@ -9,12 +9,11 @@ import { queries } from '@testing-library/react';
 export class FormQuery extends Component {
   static propTypes = {};
   state = { query: '', movies: [] };
-  componentDidUpdate(prevProps, prevState) {
-    console.log(this.props);
-  }
+
   componentDidMount() {
     const query = queryString.parse(this.props.location.search);
     console.log(query.query);
+    console.log(this.props);
     this.fetchMovie(query.query);
   }
 
@@ -27,7 +26,6 @@ export class FormQuery extends Component {
       ...this.props.location,
       search: `?query=${queryMovie}`,
     });
-    console.log(this.props.location);
 
     this.setState({ query: '' });
   };
@@ -38,10 +36,11 @@ export class FormQuery extends Component {
   fetchMovie = query => {
     MoviesAPI.fetchMovie(query).then(movies => this.setState({ movies }));
     console.log(this.state);
+    console.log(this.props);
   };
   render() {
     const { movies } = this.state;
-    const { search } = this.props.location;
+    const location = this.props.history.location;
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -61,7 +60,7 @@ export class FormQuery extends Component {
                 <NavLink
                   to={{
                     pathname: `/movies/${movie.id}`,
-                    state: search,
+                    state: { from: location },
                   }}
                 >
                   {movie.name}

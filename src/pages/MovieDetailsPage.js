@@ -12,15 +12,14 @@ export default class MovieDetailsPage extends Component {
   };
   componentDidMount() {
     const { id } = this.props.match.params;
-    console.log(this.props.location.state);
-    console.log(this.props.location.search);
-    const queryParsed = queryString.parse(this.props.location.state);
-    console.log(queryParsed);
-    this.props.history.push({
-      ...this.props.location,
-      state: `?query=${queryParsed.query}`,
-    });
-    console.log(this.props.location);
+    // console.log(this.props.location.search);
+    // const queryParsed = queryString.parse(this.props.location.state);
+    // console.log(queryParsed);
+    // this.props.history.push({
+    //   ...this.props.location,
+    //   state: `?query=${queryParsed.query}`,
+    // });
+    console.log(this.props);
 
     moviesAPI
       .fetchId(id)
@@ -41,21 +40,35 @@ export default class MovieDetailsPage extends Component {
   }
   handleClick = e => {
     e.preventDefault();
-    console.log(this.props.location);
-    if (this.props.location.state) {
-      this.props.history.push(`/movies${this.props.location.state}`);
+
+    const { state } = this.props.location;
+
+    if (state) {
+      this.props.history.push(state.from);
+      console.log(state.from);
+      return;
     } else {
       this.props.history.push('/');
     }
+    // console.log(' дошло', this.props.location);
+    // const queryParsed = queryString.parse(this.props.location.state);
+
+    // this.props.history.push({
+    //   ...this.props.location,
+    //   state: `?query=${queryParsed.query}`,
+    // });
   };
 
   render() {
     const styledLink = { color: 'red' };
     const { movie, actors, error, reviews } = this.state;
-    const { state } = this.props.location;
-    console.log(this.props.history);
-
+    const state = this.props.history.location.state;
+    console.log(this.props.history.location.state);
+    console.log(this.props);
+    // const queryParsed = queryString.parse(this.props.location.state);
     const CastComponent = () => {
+      console.log(this.props);
+
       return (
         <>
           <ul>
@@ -77,6 +90,7 @@ export default class MovieDetailsPage extends Component {
       );
     };
     const ReviewsComponent = () => {
+      console.log(this.props);
       if (reviews !== null) {
         return <p>Reviews not found</p>;
       } else {

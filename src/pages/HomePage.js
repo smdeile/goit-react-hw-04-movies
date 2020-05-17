@@ -12,10 +12,12 @@ export default class Movies extends Component {
 
   render() {
     const { movies } = this.state;
+    const location = this.props.location;
+    console.log(this.props);
     return (
       <div>
         <h1>Trending today</h1>
-        <MoviesList movies={movies} />
+        <MoviesList movies={movies} location={location} />
       </div>
     );
   }
